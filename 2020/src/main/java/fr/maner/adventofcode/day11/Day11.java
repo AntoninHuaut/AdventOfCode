@@ -14,7 +14,7 @@ public class Day11 extends Day {
     private List<Line> list = new ArrayList<>();
 
     public Day11() throws Exception {
-        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "scanner.txt");
+        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "day11_scanner.txt");
 
         parse(scan);
 

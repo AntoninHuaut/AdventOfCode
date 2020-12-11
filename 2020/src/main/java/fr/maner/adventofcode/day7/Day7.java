@@ -3,14 +3,16 @@ package fr.maner.adventofcode.day7;
 import fr.maner.adventofcode.utils.Day;
 import fr.maner.adventofcode.utils.ScannerFromFile;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Day7 extends Day {
 
     private final HashMap<String, Set<BagContainer>> bagsSet;
 
     public Day7() throws Exception {
-        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "scanner.txt");
+        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "day07_scanner.txt");
         this.bagsSet = parse(scan);
         scan.close();
     }
@@ -29,7 +31,7 @@ public class Day7 extends Day {
 
     private void recursePartOne(String colorSearch, Set<String> result) {
         this.bagsSet.forEach((bagColor, subBags) -> {
-            if(bagColor.equals(colorSearch) || result.contains(bagColor)) return;
+            if (bagColor.equals(colorSearch) || result.contains(bagColor)) return;
 
             if (subBags.stream().anyMatch(el -> el.isBag(colorSearch))) {
                 result.add(bagColor);
@@ -39,17 +41,17 @@ public class Day7 extends Day {
     }
 
     private int recursePartTwo(String colorSearch) {
-         Set<BagContainer> bags = this.bagsSet.get(colorSearch);
-         int amount = 0;
+        Set<BagContainer> bags = this.bagsSet.get(colorSearch);
+        int amount = 0;
 
-         for (BagContainer bag : bags) {
-             int bagAmount = bag.getAmount();
-             String bagName = bag.getBagName();
+        for (BagContainer bag : bags) {
+            int bagAmount = bag.getAmount();
+            String bagName = bag.getBagName();
 
-             amount += bagAmount + bagAmount * recursePartTwo(bagName);
-         }
+            amount += bagAmount + bagAmount * recursePartTwo(bagName);
+        }
 
-         return amount;
+        return amount;
     }
 
     private HashMap<String, Set<BagContainer>> parse(ScannerFromFile scan) {

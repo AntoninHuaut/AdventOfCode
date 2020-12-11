@@ -12,7 +12,7 @@ public class Day5 extends Day {
     private final List<String> list = new ArrayList<>();
 
     public Day5() throws Exception {
-        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "scanner.txt");
+        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "day05_scanner.txt");
 
         while (scan.hasNextLine()) {
             this.list.add(scan.nextLine());

@@ -11,7 +11,7 @@ public class Day4 extends Day {
     private final List<String> lines = new ArrayList<>();
 
     public Day4() throws Exception {
-        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "scanner.txt");
+        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "day04_scanner.txt");
         boolean previousEmpty = true;
 
         while (scan.hasNextLine()) {
@@ -67,7 +67,7 @@ public class Day4 extends Day {
                 String value = subParts[1].trim();
                 keyList.add(key);
 
-                if(!KeyEnum.valueOf(key).isValid(value)) fieldValueValid = false;
+                if (!KeyEnum.valueOf(key).isValid(value)) fieldValueValid = false;
             }
 
             boolean allFieldPresent = this.mandatory.stream().filter(el -> !keyList.contains(el)).findFirst().isEmpty();
@@ -91,7 +91,7 @@ public class Day4 extends Day {
             try {
                 int nb = Integer.parseInt(el);
                 return nb >= 1920 && nb <= 2002;
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 return false;
             }
         }
@@ -101,7 +101,7 @@ public class Day4 extends Day {
             try {
                 int nb = Integer.parseInt(el);
                 return nb >= 2010 && nb <= 2020;
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 return false;
             }
         }
@@ -111,7 +111,7 @@ public class Day4 extends Day {
             try {
                 int nb = Integer.parseInt(el);
                 return nb >= 2020 && nb <= 2030;
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 return false;
             }
         }
@@ -122,7 +122,7 @@ public class Day4 extends Day {
             int nb;
             try {
                 nb = Integer.parseInt(cut);
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 return false;
             }
 
@@ -141,6 +141,7 @@ public class Day4 extends Day {
         }
 
         private final List<String> valid = Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth");
+
         @Override
         public boolean isValidECL(String el) {
             return this.valid.contains(el);
@@ -153,7 +154,7 @@ public class Day4 extends Day {
             try {
                 Integer.parseInt(el);
                 return true;
-            } catch(NumberFormatException ex) {
+            } catch (NumberFormatException ex) {
                 return false;
             }
         }
@@ -215,11 +216,17 @@ public class Day4 extends Day {
     @SuppressWarnings("unused")
     public interface KeyVisitor {
         boolean isValidBYR(String el);
+
         boolean isValidIYR(String el);
+
         boolean isValidEYR(String el);
+
         boolean isValidHGT(String el);
+
         boolean isValidHCL(String el);
+
         boolean isValidECL(String el);
+
         boolean isValidPID(String el);
     }
 }

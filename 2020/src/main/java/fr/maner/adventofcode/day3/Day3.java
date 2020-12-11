@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map.Entry;
 
-public class DayThree extends Day {
+public class Day3 extends Day {
 
     private final String[][] map;
     private final int maxHeight;
@@ -18,8 +18,8 @@ public class DayThree extends Day {
     private int currentHeight;
     private int currentWidth;
 
-    public DayThree() throws Exception {
-        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "scanner.txt");
+    public Day3() throws Exception {
+        ScannerFromFile scan = ScannerFromFile.buildScan(getClass(), "day03_scanner.txt");
         List<String> lines = new ArrayList<>();
 
         while (scan.hasNextLine()) {
@@ -56,7 +56,7 @@ public class DayThree extends Day {
     @Override
     public void partTwo() {
         List<Entry<Integer, Integer>> entryList = Arrays.asList(new SimpleEntry<>(1, 1), new SimpleEntry<>(3, 1),
-                new SimpleEntry<>(5, 1), new SimpleEntry<>(7, 1),  new SimpleEntry<>(1, 2));
+                new SimpleEntry<>(5, 1), new SimpleEntry<>(7, 1), new SimpleEntry<>(1, 2));
 
         long score = 1;
 
@@ -106,7 +106,7 @@ public class DayThree extends Day {
 
     public static void main(String[] args) {
         try {
-            new DayThree().launch();
+            new Day3().launch();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
