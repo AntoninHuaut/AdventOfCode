@@ -1,6 +1,6 @@
 package fr.maner.adventofcode.utils;
 
-import fr.maner.adventofcode.day17.Day17;
+import fr.maner.adventofcode.day18.Day18;
 import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
@@ -22,7 +22,7 @@ public class Bench {
 
     @Setup(Level.Trial)
     public void setup() throws Exception {
-        this.day = new Day17();
+        this.day = new Day18();
     }
 
     @Benchmark
