@@ -1,4 +1,4 @@
-package fr.maner.adventofcode.day9;
+package fr.maner.adventofcode.day09;
 
 import fr.maner.adventofcode.utils.Day;
 import fr.maner.adventofcode.utils.ScannerFromFile;
