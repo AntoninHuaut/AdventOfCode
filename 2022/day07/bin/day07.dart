@@ -4,10 +4,11 @@ import 'dart:io';
 class FileSys {
   final FileSys? parent;
   final String name;
-  final int weight;
+  final int weight; // Weight for real file
+  final bool isDir;
   List<FileSys> children = [];
 
-  FileSys(this.parent, this.name, this.weight);
+  FileSys(this.parent, this.name, this.weight, this.isDir);
 
   @override
   String toString() {
@@ -16,7 +17,7 @@ class FileSys {
 
   int get totalWeight => weight + children.fold(0, (a, b) => a + b.totalWeight);
 
-  int get childWeight => children.fold(0, (a, b) => a + b.childWeight + (b.children.isEmpty ? b.weight : 0));
+  int get childWeight => children.fold(0, (a, b) => a + b.childWeight + b.weight);
 }
 
 FileSys parseFileSys(List<String> input) {
@@ -35,7 +36,7 @@ FileSys parseFileSys(List<String> input) {
         if (name == '..') {
           current = current?.parent;
         } else {
-          var child = FileSys(current, name, 0);
+          var child = FileSys(current, name, 0, true);
           current?.children.add(child);
           current = child;
         }
@@ -55,7 +56,7 @@ FileSys parseFileSys(List<String> input) {
 
           var weight = int.parse(subParts[0]);
           var name = subParts[1];
-          var child = FileSys(current, name, weight);
+          var child = FileSys(current, name, weight, false);
 
           current?.children.add(child);
           lineIndex++;
@@ -63,8 +64,7 @@ FileSys parseFileSys(List<String> input) {
         lineIndex--;
       }
     } else {
-      print("PANIC");
-      exit(1);
+      throw Exception("PANIC Invalid state");
     }
   }
 
@@ -80,7 +80,7 @@ FileSys parseFileSys(List<String> input) {
 }
 
 void printFileSys(FileSys file, int indent) {
-  var optType = file.children.isNotEmpty ? 'dir' : 'file, size=${file.weight}';
+  var optType = file.isDir ? 'dir' : 'file, size=${file.weight}';
   print('${' ' * indent} - ${file.name} ($optType)');
   for (var child in file.children) {
     printFileSys(child, indent + 2);
@@ -113,10 +113,7 @@ int partTwo(FileSys root) {
 
   while (toCheck.isNotEmpty) {
     var child = toCheck.removeFirst();
-    if (child.children.isEmpty) {
-      // Not a directory
-      continue;
-    }
+    if (!child.isDir) continue;
 
     var childTotalWeight = child.totalWeight;
     if (childTotalWeight >= missingSpace && (childTotalWeight < bestSize || bestSize == -1)) {
